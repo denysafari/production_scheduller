@@ -21,11 +21,13 @@ def solve_optimization(monthly_demand, max_days, capacity):
     # Additional constraint to ensure products are finished within lead times
     model.finish_constraint = Constraint(product_types, rule=lambda model, ptype: sum(model.production[ptype, day] for day in range(1, max_days[ptype] + 1)) >= monthly_demand[ptype])
 
-    # Solve the optimization problem using GLPK solver
-    # Specify the path to the GLPK solver executable
-    glpk_solver_path = "./glpk/w64/glpsol"
+    # #Solve the optimization problem using GLPK solver
+    # #Specify the path to the GLPK solver executable
+    # glpk_solver_path = "./glpk/w64/glpsol"
     
-    solver = SolverFactory('glpk', executable=glpk_solver_path)
+    # solver = SolverFactory('glpk', executable=glpk_solver_path) #non active
+    solver = SolverFactory('glpk')
+    
     result = solver.solve(model)
 
     # Check the solver status
